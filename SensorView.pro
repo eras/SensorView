@@ -8,9 +8,15 @@
 #         - icon definition filename in desktop file must be changed
 TARGET = SensorView
 
+QT += concurrent
+
 CONFIG += sailfishapp
 
-SOURCES += src/SensorView.cpp
+QMAKE_CXXFLAGS += -std=c++0x
+
+HEADERS += src/BLE.hpp src/Utils.hpp
+
+SOURCES += src/SensorView.cpp src/BLE.cpp src/Utils.cpp
 
 OTHER_FILES += qml/SensorView.qml \
     qml/cover/CoverPage.qml \
