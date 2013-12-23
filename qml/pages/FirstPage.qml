@@ -98,7 +98,7 @@ Page {
 
 	    Label {
 		x : Theme.paddingLarge
-		text: "Handle " + handle
+		text: label != "" ? label : handle + ":" + uuid.toString()
 		anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
 	    }
