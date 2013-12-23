@@ -33,9 +33,22 @@
 #endif
 
 #include "SensorViewApp.hpp"
+#include <QtCore/QCoreApplication>
+#include <QDebug>
+#include <QString>
+
+#include <iostream>
+
+void
+debugToStderr(QtMsgType a_type, const QMessageLogContext& a_ctx, const QString& a_msg)
+{
+  std::cerr << a_msg.toStdString() << std::endl;
+}
 
 int main(int argc, char *argv[])
 {
+  qInstallMessageHandler(debugToStderr);
+
   // why cannot this variable be automatic? segmenfation faults otherwise.
   SensorViewApp* sensorViewApp = new SensorViewApp(0, argc, argv);
 
