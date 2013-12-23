@@ -30,9 +30,7 @@ BLE::connectDevice(QString a_address)
 void
 BLE::characteristicsReadyHandler()
 {
-  std::cerr << __FUNCTION__ << std::endl;
   m_characteristics = m_futureCharacteristicsWatcher->future().result();
-  std::cerr << m_characteristics.size() << std::endl;
   setInquiringCharacteristics(false);
   emit characteristicsReady();
 }
@@ -55,7 +53,6 @@ BLE::inquireCharacteristics()
       int misses2 = 0;
       // error: Transport endpoint is not connected (107)
       for (auto line : lines) {
-        std::cerr << "line: " << line.toStdString() << std::endl;
         // int   handle;
         // int   properties;
         // int   valueHandle;
