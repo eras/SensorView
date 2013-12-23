@@ -43,7 +43,7 @@ Page {
         PullDownMenu {
             MenuItem {
 		id: menuRefreshCharacteristics
-                text: "Refresh"
+                text: ble.inquiringCharacteristics ? "Refreshing.." : "Refresh"
                 onClicked: ble.inquireCharacteristics()
             }
         }
