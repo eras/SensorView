@@ -32,34 +32,12 @@
 #include <QtQuick>
 #endif
 
-#include <QGuiApplication>
-#include <QQmlContext>
-#include <QQmlEngine>
-#include <QQuickView>
-#include <QScopedPointer>
-#include <sailfishapp.h>
-
-#include "BLE.hpp"
-#include "BLECharacteristic.hpp"
-#include "ListModel.hpp"
+#include "SensorViewApp.hpp"
 
 int main(int argc, char *argv[])
 {
-  QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-  QScopedPointer<QQuickView> view(SailfishApp::createView());
+  SensorViewApp sensorViewApp(0, argc, argv);
 
-  view->engine()->addImportPath(SailfishApp::pathTo("qml/components").toString());
-  view->setSource(SailfishApp::pathTo("qml/SensorView.qml"));
-
-  BLE* ble = new BLE();
-  ble->inquireCharacteristics();
-
-  ListModel* model = new ListModel(new BLECharacteristic);
-  model->appendRow(new BLECharacteristic(QUuid(), "hello", 0, 0, 0));
-  view->rootContext()->setContextProperty("characteristicsModel", model);
-
-  view->show();
-
-  return QGuiApplication::exec();
+  return sensorViewApp.exec();
 }
 
