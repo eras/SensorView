@@ -22,14 +22,14 @@ SensorViewApp::SensorViewApp(QObject* a_parent, int a_argc, char** a_argv) :
   m_view->engine()->addImportPath(SailfishApp::pathTo("qml/components").toString());
   m_view->setSource(SailfishApp::pathTo("qml/SensorView.qml"));
 
-  connect(m_ble, SIGNAL(characteristicsReady()), this, SLOT(updateCharacteristics()));
-  m_ble->connectDevice("34:B1:F7:D5:59:A2");
-  m_ble->inquireCharacteristics();
-
   m_view->rootContext()->setContextProperty("ble", m_ble);
   m_view->rootContext()->setContextProperty("characteristicsModel", m_characteristicsModel);
 
   m_view->show();
+
+  connect(m_ble, SIGNAL(characteristicsReady()), this, SLOT(updateCharacteristics()));
+  m_ble->connectDevice("34:B1:F7:D5:59:A2");
+  m_ble->inquireCharacteristics();
 }
 
 void
