@@ -6,6 +6,7 @@
 
 #include "Utils.hpp"
 #include "BLE.hpp"
+#include "BLECharacteristic.hpp"
 
 BLE::BLE(QObject* a_parent) :
   QObject(a_parent)
@@ -33,7 +34,6 @@ BLE::inquireCharacteristics()
       // handle = 0x0002, char properties = 0x02, char value handle = 0x0003, uuid = 00002a00-0000-1000-8000-00805f9b34fb
       QRegExp re("^handle = ([^,]*), char properties = ([^,]*), char value handle = ([^,]*), uuid = (.*)$");
       for (auto line : lines) {
-        BLECharacteristic c;
         // int   handle;
         // int   properties;
         // int   valueHandle;
@@ -41,14 +41,18 @@ BLE::inquireCharacteristics()
         if (re.exactMatch(line)) {
           auto strs = re.capturedTexts();
           bool ok = true;
-          c.handle              = strs[0].toInt(&ok, 0);
-          if (ok) c.properties  = strs[1].toInt(&ok, 0);
-          if (ok) c.valueHandle = strs[2].toInt(&ok, 0);
-          if (ok) c.uuid        = QUuid(strs[3]);
+          int handle;
+          int properties;
+          int valueHandle;
+          QUuid uuid;
+          handle              = strs[0].toInt(&ok, 0);
+          if (ok) properties  = strs[1].toInt(&ok, 0);
+          if (ok) valueHandle = strs[2].toInt(&ok, 0);
+          if (ok) uuid        = QUuid(strs[3]);
           if (!ok) {
             // uh oh?
           } else {
-            results.push_back(c);
+            results.push_back(new BLECharacteristic(uuid, "", handle, properties, valueHandle));
           }
         } else {
           // uh oh?
@@ -61,8 +65,8 @@ BLE::inquireCharacteristics()
   watcher->setFuture(future);
 }
 
-BLECharacteristics
-BLE::getCharacteristics() const
+BLECharacteristics*
+BLE::getCharacteristics()
 {
-  return m_characteristisc;
+  return &m_characteristics;
 }

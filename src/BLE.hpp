@@ -5,14 +5,8 @@
 #include <QUuid>
 #include <QString>
 
-struct BLECharacteristic {
-  int   handle;
-  int   properties;
-  int   valueHandle;
-  QUuid uuid;
-};
-
-typedef QList<BLECharacteristic> BLECharacteristics;
+class BLECharacteristic;
+typedef QList<BLECharacteristic*> BLECharacteristics;
 
 class BLE: public QObject {
   Q_OBJECT
@@ -24,8 +18,8 @@ public:
   // populate charactesristics information asynchronously
   void inquireCharacteristics();
 
-  // once characteristicsReady is emitted, use this to get them
-  QList<BLECharacteristic> getCharacteristics() const;
+  // once characteristicsReady is emitted, this is updated.
+  BLECharacteristics* getCharacteristics();
 
   virtual ~BLE();
 
@@ -36,7 +30,7 @@ private slots:
 
 private:
   QString            m_address;
-  BLECharacteristics m_characteristisc;
+  BLECharacteristics m_characteristics;
 };
 
 #endif // BLE_HPP

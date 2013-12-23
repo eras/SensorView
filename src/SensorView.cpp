@@ -32,20 +32,34 @@
 #include <QtQuick>
 #endif
 
+#include <QGuiApplication>
+#include <QQmlContext>
+#include <QQmlEngine>
+#include <QQuickView>
+#include <QScopedPointer>
 #include <sailfishapp.h>
 
+#include "BLE.hpp"
+#include "BLECharacteristic.hpp"
+#include "ListModel.hpp"
 
 int main(int argc, char *argv[])
 {
-    // SailfishApp::main() will display "qml/template.qml", if you need more
-    // control over initialization, you can use:
-    //
-    //   - SailfishApp::application(int, char *[]) to get the QGuiApplication *
-    //   - SailfishApp::createView() to get a new QQuickView * instance
-    //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
-    //
-    // To display the view, call "show()" (will show fullscreen on device).
+  QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+  QScopedPointer<QQuickView> view(SailfishApp::createView());
 
-    return SailfishApp::main(argc, argv);
+  view->engine()->addImportPath(SailfishApp::pathTo("qml/components").toString());
+  view->setSource(SailfishApp::pathTo("qml/SensorView.qml"));
+
+  BLE* ble = new BLE();
+  ble->inquireCharacteristics();
+
+  ListModel* model = new ListModel(new BLECharacteristic);
+  model->appendRow(new BLECharacteristic(QUuid(), "hello", 0, 0, 0));
+  view->rootContext()->setContextProperty("characteristicsModel", model);
+
+  view->show();
+
+  return QGuiApplication::exec();
 }
 
