@@ -35,11 +35,9 @@ SensorViewApp::SensorViewApp(QObject* a_parent, int a_argc, char** a_argv) :
 void
 SensorViewApp::updateCharacteristics()
 {
-  std::cerr << "Updating characteristics" << std::endl;
   m_characteristicsModel->clear();
   BLECharacteristics* characteristics = m_ble->getCharacteristics();
   for (auto c : *characteristics) {
-    std::cerr << __LINE__ << std::endl;
     m_characteristicsModel->appendRow(c);
   }
 }
