@@ -17,7 +17,7 @@ public:
   void connectDevice(QString a_address);
 
   // populate charactesristics information asynchronously
-  void inquireCharacteristics();
+  Q_INVOKABLE void inquireCharacteristics();
 
   // once characteristicsReady is emitted, this is updated.
   BLECharacteristics* getCharacteristics();
