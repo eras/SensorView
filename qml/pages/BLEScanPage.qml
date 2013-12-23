@@ -39,6 +39,15 @@ Page {
 	id: characteristicsView
 	model: characteristicsModel
 	anchors.fill: parent
+
+        PullDownMenu {
+            MenuItem {
+		id: menuRefreshCharacteristics
+                text: "Refresh"
+                onClicked: ble.inquireCharacteristics()
+            }
+        }
+
 	header: PageHeader {
 	    title: "Characteristics"
 	}

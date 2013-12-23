@@ -26,6 +26,7 @@ SensorViewApp::SensorViewApp(QObject* a_parent, int a_argc, char** a_argv) :
   m_ble->connectDevice("34:B1:F7:D5:59:A2");
   m_ble->inquireCharacteristics();
 
+  m_view->rootContext()->setContextProperty("ble", m_ble);
   m_view->rootContext()->setContextProperty("characteristicsModel", m_characteristicsModel);
 
   m_view->show();
