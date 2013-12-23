@@ -11,7 +11,7 @@
 #include "BLECharacteristic.hpp"
 
 BLE::BLE(QObject* a_parent) :
-  QObject(a_parent), m_futureCharacteristicsWatcher(new QFutureWatcher<BLECharacteristics>(this))
+  QObject(a_parent), m_futureCharacteristicsWatcher(new QFutureWatcher<BLECharacteristics>(this)), m_inquiringCharacteristics(false)
 {
   connect(m_futureCharacteristicsWatcher, SIGNAL(finished()), this, SLOT(characteristicsReadyHandler()));
 }
@@ -33,12 +33,16 @@ BLE::characteristicsReadyHandler()
   std::cerr << __FUNCTION__ << std::endl;
   m_characteristics = m_futureCharacteristicsWatcher->future().result();
   std::cerr << m_characteristics.size() << std::endl;
+  setInquiringCharacteristics(false);
   emit characteristicsReady();
 }
 
 void
 BLE::inquireCharacteristics()
 {
+  if (m_inquiringCharacteristics) {
+    return;
+  }
   auto future = QtConcurrent::run([this]() -> BLECharacteristics {
       std::cerr << "Querying" << std::endl;
       // TODO: attacks lie here
@@ -82,6 +86,7 @@ BLE::inquireCharacteristics()
       std::cerr << "Querying complete, " << count << " lines, " << misses1 << "/" << misses2 << " misses" << " " << results.size() << " results" << std::endl;
       return results;
     });
+  setInquiringCharacteristics(true);
   m_futureCharacteristicsWatcher->setFuture(future);
 }
 
