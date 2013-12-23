@@ -14,9 +14,9 @@ CONFIG += sailfishapp
 
 QMAKE_CXXFLAGS += -std=c++0x
 
-HEADERS += src/BLE.hpp src/Utils.hpp
+HEADERS += src/BLE.hpp src/Utils.hpp src/ListModel.hpp src/BLECharacteristic.hpp
 
-SOURCES += src/SensorView.cpp src/BLE.cpp src/Utils.cpp
+SOURCES += src/SensorView.cpp src/BLE.cpp src/Utils.cpp src/ListModel.cpp src/BLECharacteristic.cpp
 
 OTHER_FILES += qml/SensorView.qml \
     qml/cover/CoverPage.qml \
