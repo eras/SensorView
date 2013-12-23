@@ -1,0 +1,9 @@
+*.o
+*~
+core
+*.rpm
+SensorView
+*.pro.user
+*.list
+moc_*.cpp
+Makefile
