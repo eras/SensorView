@@ -58,7 +58,7 @@ Page {
 		x : Theme.paddingLarge
 		text: label != "" ? label : handle + ":" + uuid.toString()
 		anchors.verticalCenter: parent.verticalCenter
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+		color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
 	    }
 	    onClicked: console.log("Clicked " + index);
 	}
