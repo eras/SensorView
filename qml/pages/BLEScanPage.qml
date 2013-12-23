@@ -41,15 +41,15 @@ Page {
 	anchors.fill: parent
 
         PullDownMenu {
-            MenuItem {
+	    MenuItem {
 		id: menuRefreshCharacteristics
                 text: ble.inquiringCharacteristics ? "Refreshing.." : "Refresh"
                 onClicked: ble.inquireCharacteristics()
-            }
+	    }
         }
 
 	header: PageHeader {
-	    title: "Characteristics"
+	    title: "Characteristics" + (ble.inquiringCharacteristics ? " refreshing.." : "")
 	}
 	delegate: BackgroundItem {
 	    id : delegate
