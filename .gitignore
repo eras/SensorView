@@ -7,3 +7,4 @@ SensorView
 *.list
 moc_*.cpp
 Makefile
+*.spec
