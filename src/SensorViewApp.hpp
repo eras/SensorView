@@ -6,6 +6,9 @@
 class QGuiApplication;
 class QQuickView;
 
+class BLE;
+class ListModel;
+
 class SensorViewApp: public QObject {
   Q_OBJECT
 public:
@@ -15,9 +18,14 @@ public:
 
   ~SensorViewApp();
 
+private slots:
+  void updateCharacteristics();
+
 private:
   QGuiApplication* m_app;
   QQuickView*      m_view;
+  BLE*             m_ble;
+  ListModel*       m_characteristicsModel;
 };
 
 #endif // SENSORVIEWAPP_HPP
