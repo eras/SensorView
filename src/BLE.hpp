@@ -1,6 +1,7 @@
 #ifndef BLE_HPP
 #define BLE_HPP
 
+#include <QFutureWatcher>
 #include <QObject>
 #include <QUuid>
 #include <QString>
@@ -27,10 +28,12 @@ signals:
   void characteristicsReady();
 
 private slots:
+  void characteristicsReadyHandler();
 
 private:
-  QString            m_address;
-  BLECharacteristics m_characteristics;
+  QString                             m_address;
+  BLECharacteristics                  m_characteristics;
+  QFutureWatcher<BLECharacteristics>* m_futureCharacteristicsWatcher;
 };
 
 #endif // BLE_HPP
