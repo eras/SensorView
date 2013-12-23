@@ -14,14 +14,14 @@
 SensorViewApp::SensorViewApp(QObject* a_parent, int a_argc, char** a_argv) :
   QObject(a_parent)
 {
-  m_app.reset(SailfishApp::application(a_argc, a_argv));
-  m_view.reset(SailfishApp::createView());
+  m_app = SailfishApp::application(a_argc, a_argv);
+  m_view = SailfishApp::createView();
 
   m_view->engine()->addImportPath(SailfishApp::pathTo("qml/components").toString());
   m_view->setSource(SailfishApp::pathTo("qml/SensorView.qml"));
 
-  //BLE* ble = new BLE();
-  //ble->inquireCharacteristics();
+  BLE* ble = new BLE();
+  ble->inquireCharacteristics();
 
   ListModel* model = new ListModel(new BLECharacteristic);
   model->appendRow(new BLECharacteristic(QUuid(), "hello", 1, 2, 3));

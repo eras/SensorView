@@ -36,8 +36,9 @@
 
 int main(int argc, char *argv[])
 {
-  SensorViewApp sensorViewApp(0, argc, argv);
+  // why cannot this variable be automatic? segmenfation faults otherwise.
+  SensorViewApp* sensorViewApp = new SensorViewApp(0, argc, argv);
 
-  return sensorViewApp.exec();
+  return sensorViewApp->exec();
 }
 

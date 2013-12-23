@@ -16,8 +16,8 @@ public:
   ~SensorViewApp();
 
 private:
-  QScopedPointer<QGuiApplication> m_app;
-  QScopedPointer<QQuickView> m_view;
+  QGuiApplication* m_app;
+  QQuickView*      m_view;
 };
 
 #endif // SENSORVIEWAPP_HPP
