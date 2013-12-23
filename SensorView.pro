@@ -21,7 +21,7 @@ SOURCES += src/SensorView.cpp src/BLE.cpp src/Utils.cpp src/ListModel.cpp src/BL
 OTHER_FILES += qml/SensorView.qml \
     qml/cover/CoverPage.qml \
     qml/pages/BLEScanPage.qml \
-    qml/pages/SecondPage.qml \
+    qml/pages/BLECharacteristicPage.qml \
     rpm/SensorView.spec \
     rpm/SensorView.yaml \
     SensorView.desktop

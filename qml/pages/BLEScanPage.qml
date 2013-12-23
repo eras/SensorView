@@ -60,7 +60,7 @@ Page {
 		anchors.verticalCenter: parent.verticalCenter
 		color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
 	    }
-	    onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
+	    onClicked: pageStack.push(Qt.resolvedUrl("BLECharacteristicPage.qml"), { name: uuid.toString() })
 	}
     }
 }
